@@ -71,8 +71,7 @@ public class ProductsController {
         product.setType(productDto.getType());
         product.setDescription(productDto.getDescription());
 
-        //save this product object to the database
-        //using the repository
+        //save this product object to the database using the repository
         repo.save(product);
 
         return "redirect:/products";
