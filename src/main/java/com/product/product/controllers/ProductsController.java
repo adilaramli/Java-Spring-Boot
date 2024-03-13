@@ -5,12 +5,15 @@ import com.product.product.models.ProductDto;
 import com.product.product.services.ProductsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -23,10 +26,20 @@ public class ProductsController {
 
     //below annotation bcs this methd will be accessible by HTTP get mapping
     @GetMapping({"", "/"})
-    public String showProductList(Model model){
-        //String here is the html file name
-        List<Product> products =repo.findAll(Sort.by(Sort.Direction.DESC,"id"));
+    public String showProductList(Model model,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size){
+        Page<Product> productPage= repo.findAll(PageRequest.of(page,size,Sort.by(Sort.Direction.DESC, "id")));
+        List<Product> products =productPage.getContent();
+
+
         model.addAttribute("products", products);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        // Add the page sizes to the model
+        List<Integer> pageSizes = Arrays.asList(10, 15, 20, 25);
+        model.addAttribute("pageSizes", pageSizes);
+        model.addAttribute("selectedSize", size);
         //add the products to this model which will be accessible to the html file
         return "products/index";
     }
