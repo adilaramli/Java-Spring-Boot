@@ -6,7 +6,7 @@
 2. Next, the application will display this page
 ![image](https://github.com/adilaramli/Java-Spring-Boot/assets/73582306/6f1b7bc6-da7b-48da-97da-78b6314b1abe)
 
-3. User can choose their preffered number of rows of records displayed in a single page
+3. User can choose how many of records to be displayed in a single page
 ![image](https://github.com/adilaramli/Java-Spring-Boot/assets/73582306/584b8a00-21e3-4284-9815-9b7136ec2fd8)
 
 4. User can create a new product by clicking the 'Create Product' button at the top left side of the page
